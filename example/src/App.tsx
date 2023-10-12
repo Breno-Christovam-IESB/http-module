@@ -1,18 +1,22 @@
 import * as React from 'react';
 
-import { StyleSheet, View, Text } from 'react-native';
-import { multiply } from 'http-module';
+import { StyleSheet, View } from 'react-native';
+import { api } from 'http-module';
 
 export default function App() {
-  const [result, setResult] = React.useState<number | undefined>();
+  //const [result, setResult] = React.useState<number | undefined>();
 
   React.useEffect(() => {
-    multiply(3, 7).then(setResult);
+      const loadProducts = async () =>{
+        const response = await api.get('/read-products');
+        console.log(`RESPOSTA ... ${JSON.stringify(response)}`);
+      };
+      loadProducts();
   }, []);
 
   return (
     <View style={styles.container}>
-      <Text>Result: {result}</Text>
+     {/*} <Text>Result: {result}</Text>*/}
     </View>
   );
 }
